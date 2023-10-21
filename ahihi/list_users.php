@@ -1,37 +1,22 @@
 <?php
 // Start the session
 session_start();
-// function encodeIdToBytes($id) {
-//     $idBytes = pack("N", $id); // Sử dụng pack để chuyển ID thành byte
-//     return $idBytes;
-//     }
+
 require_once 'models/UserModel.php';
 $userModel = new UserModel();
-
+//$keyRandom = rand(10,100);
 $params = [];
 if (!empty($_GET['keyword'])) {
     $params['keyword'] = $_GET['keyword'];
 }
 
 $users = $userModel->getUsers($params);
-function mahoa($input){
-    $id = $input * 12345 - 223;
-    return $id;
-}
-function hash_string($input_string) {
-    $hashed_string = hash('sha256', $input_string);
-    return $hashed_string;
-}
 ?>
 <!DOCTYPE html>
 <html>
 <head>
     <title>Home</title>
     <?php include 'views/meta.php' ?>
-    <meta
-  http-equiv="Content-Security-Policy"
-  content=" script-src 'none'; "
-   />
 </head>
 <body>
     <?php include 'views/header.php'?>
@@ -42,11 +27,8 @@ function hash_string($input_string) {
                 Hacker: http://php.local/list_users.php?keyword=ASDF%25%22%3BTRUNCATE+banks%3B%23%23
             </div>
             <table class="table table-striped">
-             
                 <thead>
                     <tr>
-                      
-                    <!-- <button onclick="myFunction()">Nhấn vào đây</button> -->
                         <th scope="col">ID</th>
                         <th scope="col">Username</th>
                         <th scope="col">Fullname</th>
@@ -57,23 +39,18 @@ function hash_string($input_string) {
                 <tbody>
                     <?php foreach ($users as $user) {?>
                         <tr>
-                            
                             <th scope="row"><?php echo $user['id']?></th>
                             <td>
-                                <?php echo strip_tags($user['name'])?>
+                                <?php echo $user['name']?>
                             </td>
                             <td>
                                 <?php echo $user['fullname']?>
                             </td>
                             <td>
-                                <?php echo $user['type'];
-                              //   $_SESSION['update_at'] = $userModel->selectUpdateat($user['id']);
-                               // $version = $user['update_at'];
-                            ?>
-   
+                                <?php echo $user['type']?>
                             </td>
                             <td>
-                                <a href="form_user.php?id=<?php echo ($user['id'])?>">
+                                <a href="form_user.php?id=<?php echo $user['id']?>">
                                     <i class="fa fa-pencil-square-o" aria-hidden="true" title="Update"></i>
                                 </a>
                                 <a href="view_user.php?id=<?php echo $user['id'] ?>">
@@ -92,6 +69,6 @@ function hash_string($input_string) {
                 This is a dark alert—check it out!
             </div>
         <?php } ?>
-    </div>  
+    </div>
 </body>
 </html>

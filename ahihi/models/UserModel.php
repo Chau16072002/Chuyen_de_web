@@ -38,34 +38,34 @@ class UserModel extends BaseModel {
         $user = $this->select($sql);
         return $user;
     }
-    //   //Pessimistic locking
-    //   public function lockUser($id)
-    //   {
-    //       $sql = 'UPDATE users SET 
-    //       is_locked = 1
-    //      WHERE id = ' . $id;
-    //       $user = $this->update($sql);
+      //Pessimistic locking
+      public function lockUser($id)
+      {
+          $sql = 'UPDATE users SET 
+          is_locked = 1
+         WHERE id = ' . $id;
+          $user = $this->update($sql);
   
-    //       return $user;
-    //   }
-    //   public function unlockUser($id)
-    //   {
-    //       $sql = 'UPDATE users SET 
-    //       is_locked = 0
-    //      WHERE id = ' . $id;
-    //       $user = $this->update($sql);
-    //       return $user;
-    //   }
-    //   public function checkIs_locked($id){
-    //       $sql = 'SELECT is_locked FROM users WHERE id = ' .$id;
-    //       $users = $this->select($sql);
-    //       foreach ($users as $user){
-    //            if($user['is_locked'] == 0){
-    //           return false;
-    //       }
-    //       return true;
-    //   }   
-    //  }
+          return $user;
+      }
+      public function unlockUser($id)
+      {
+          $sql = 'UPDATE users SET 
+          is_locked = 0
+         WHERE id = ' . $id;
+          $user = $this->update($sql);
+          return $user;
+      }
+      public function checkIs_locked($id){
+          $sql = 'SELECT is_locked FROM users WHERE id = ' .$id;
+          $users = $this->select($sql);
+          foreach ($users as $user){
+               if($user['is_locked'] == 0){
+              return false;
+          }
+          return true;
+      }   
+      }
     
     /**
      * Delete user by id
@@ -131,11 +131,5 @@ class UserModel extends BaseModel {
         }
 
         return $users;
-    }
-
-    public function accesscheck($id, $id1){
-        if($id == $id1){
-            return true;
-        }        
     }
 }
